@@ -2,14 +2,7 @@
 <html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <!-- viewport-fit=cover для iPhone с "челкой" -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ООО Квинтет принт — ремонт принтеров, компьютеров и заправка картриджей в Нижнем Новгороде</title>
   <meta name="description" content="Профессиональный ремонт лазерных и струйных принтеров, сканеров, компьютеров, сборка и продажа ПК, заправка и восстановление картриджей, продажа расходных материалов. Нижегородская область. Работаем с физлицами и организациями." />
   <meta name="keywords" content="ремонт принтеров, заправка картриджей, ремонт картриджей, ремонт компьютеров, сборка компьютеров, продажа компьютеров, расходные материалы, Нижний Новгород, Квинтет принт" />
@@ -17,7 +10,6 @@
   <meta property="og:description" content="Ремонт лазерных и струйных принтеров, сканеров, компьютеров, сборка и продажа ПК, заправка картриджей и продажа расходных материалов в Нижегородской области." />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ru_RU" />
-  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -279,35 +271,35 @@
         <div class="slider reveal" id="slider">
           <div class="slider__track" id="sliderTrack">
             <article class="slide">
-              <img class="slide__img" src="images/1printer.jpg" alt="Восстановление лазерного принтера HP" loading="lazy" width="1200" height="900" />
+              <div class="slide__img slide__img--1"></div>
               <div class="slide__body">
                 <h3>Восстановление лазерного принтера HP</h3>
                 <p>Замена фотобарабана и ракеля, устранение полос при печати. Срок — 1 день.</p>
               </div>
             </article>
             <article class="slide">
-              <img class="slide__img" src="images/2cartridg.jpg" alt="Заправка картриджей для офиса" loading="lazy" width="1200" height="900" />
+              <div class="slide__img slide__img--2"></div>
               <div class="slide__body">
                 <h3>Заправка картриджей для офиса</h3>
                 <p>Комплексная заправка 20 картриджей Kyocera с чип-программированием. Срок — 1 день.</p>
               </div>
             </article>
             <article class="slide">
-              <img class="slide__img" src="images/3Epson.jpg" alt="Ремонт струйного принтера Epson" loading="lazy" width="1200" height="900" />
+              <div class="slide__img slide__img--3"></div>
               <div class="slide__body">
                 <h3>Ремонт струйного принтера Epson</h3>
                 <p>Прочистка печатающей головки, восстановление цветопередачи. Срок — 1 день.</p>
               </div>
             </article>
             <article class="slide">
-              <img class="slide__img" src="images/4pc.jpg" alt="Сборка и продажа игрового компьютера" loading="lazy" width="1200" height="900" />
+              <div class="slide__img slide__img--4"></div>
               <div class="slide__body">
                 <h3>Сборка и продажа игрового компьютера</h3>
                 <p>Подбор комплектующих, сборка, установка системы и настройка ПО. Срок — 1 день.</p>
               </div>
             </article>
             <article class="slide">
-              <img class="slide__img" src="images/5parktehniki.jpg" alt="Обслуживание парка техники" loading="lazy" width="1200" height="900" />
+              <div class="slide__img slide__img--5"></div>
               <div class="slide__body">
                 <h3>Обслуживание парка техники</h3>
                 <p>Договорное обслуживание принтеров, сканеров и компьютеров крупной компании. Ежемесячно.</p>
@@ -523,20 +515,19 @@
 
         <div class="form__group">
           <label for="name">Наименование организации / физлица *</label>
-          <input type="text" id="name" name="Имя / наименование организации" required placeholder="ООО «Ромашка» / Иванов И. И." autocomplete="organization" />
+          <input type="text" id="name" name="Имя / наименование организации" required placeholder="ООО «Ромашка» / Иванов И. И." />
           <span class="form__error" data-error-for="name"></span>
         </div>
 
         <div class="form__group">
           <label for="address">Адрес организации / физлица *</label>
-          <input type="text" id="address" name="Адрес" required placeholder="Город, улица, дом, офис" autocomplete="street-address" />
+          <input type="text" id="address" name="Адрес" required placeholder="Город, улица, дом, офис" />
           <span class="form__error" data-error-for="address"></span>
         </div>
 
         <div class="form__group">
           <label for="phone">Телефон *</label>
-          <!-- inputmode=tel откроет цифровую клавиатуру на телефонах -->
-          <input type="tel" id="phone" name="Телефон" required placeholder="+7 (___) ___-__-__" inputmode="tel" autocomplete="tel" />
+          <input type="tel" id="phone" name="Телефон" required placeholder="+7 (___) ___-__-__" />
           <span class="form__error" data-error-for="phone"></span>
         </div>
 
