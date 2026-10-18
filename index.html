@@ -2,6 +2,7 @@
 <html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
+  <!-- viewport-fit=cover для iPhone с "челкой" -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0b0d10" media="(prefers-color-scheme: dark)" />
@@ -534,6 +535,7 @@
 
         <div class="form__group">
           <label for="phone">Телефон *</label>
+          <!-- inputmode=tel откроет цифровую клавиатуру на телефонах -->
           <input type="tel" id="phone" name="Телефон" required placeholder="+7 (___) ___-__-__" inputmode="tel" autocomplete="tel" />
           <span class="form__error" data-error-for="phone"></span>
         </div>
