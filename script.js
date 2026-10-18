@@ -100,18 +100,20 @@
     prevBtn.addEventListener('click', prev);
 
     function startAutoplay() {
-      autoplayTimer = setInterval(next, 6000);
+      // Автопрокрутка каждые 3 секунды
+      autoplayTimer = setInterval(next, 3000);
     }
+    
     function restartAutoplay() {
+      // Сброс таймера, чтобы после ручного клика
+      // слайд висел полные 3 секунды
       clearInterval(autoplayTimer);
       startAutoplay();
     }
+    
     startAutoplay();
 
-    const slider = document.getElementById('slider');
-    slider.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
-    slider.addEventListener('mouseleave', startAutoplay);
-
+    // Свайпы для мобильных
     let touchStartX = 0;
     track.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
