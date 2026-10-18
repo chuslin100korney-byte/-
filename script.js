@@ -91,7 +91,6 @@
     let autoplayTimer = null;
     let isPaused = false;
 
-    // Точки навигации
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.className = 'slider__dot' + (i === 0 ? ' is-active' : '');
@@ -118,7 +117,6 @@
 
     function startAutoplay() {
       autoplayTimer = setInterval(() => {
-        // Не переключаем, если вкладка неактивна или слайдер вне экрана
         if (document.hidden || isPaused) return;
         goTo(currentIndex + 1);
       }, 3000);
@@ -149,7 +147,6 @@
       if (!isSwiping) return;
       const diffX = Math.abs(touchStartX - e.changedTouches[0].screenX);
       const diffY = Math.abs(touchStartY - e.changedTouches[0].screenY);
-      // Если пользователь явно скроллит вертикально — не мешаем
       if (diffY > diffX * 1.5) {
         isSwiping = false;
       }
@@ -164,7 +161,6 @@
       }
     }, { passive: true });
 
-    // ===== Пауза при уходе со вкладки =====
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         clearInterval(autoplayTimer);
@@ -173,7 +169,6 @@
       }
     });
 
-    // ===== Пауза при наведении (для мыши) =====
     const slider = document.getElementById('slider');
     if (slider) {
       slider.addEventListener('mouseenter', () => { isPaused = true; });
@@ -346,7 +341,6 @@
       }
 
       if (hasError) {
-        // Прокручиваем к первой ошибке — удобно на мобильных
         const firstInvalid = orderForm.querySelector('.is-invalid');
         if (firstInvalid) {
           firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -362,7 +356,6 @@
 
       const formData = new FormData(orderForm);
 
-      // AbortController поддерживается везде, кроме IE (не актуально)
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 8000);
 
