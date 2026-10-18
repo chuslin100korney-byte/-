@@ -95,6 +95,7 @@ p { margin: 0 0 1em; }
 .btn--ghost {
   border: 1px solid var(--border);
   color: var(--text);
+  background: transparent;
 }
 .btn--ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
@@ -354,50 +355,39 @@ p { margin: 0 0 1em; }
 .advantage p { font-size: 14.5px; color: var(--text-muted); margin: 0; }
 
 /* =================================================================
-   СЛАЙДЕР (ФОНОВЫЕ КАРТИНКИ - 100% СТАБИЛЬНО НА ВСЕХ УСТРОЙСТВАХ)
+   СЛАЙДЕР (100% СТАБИЛЬНО: ФОТО СВЕРХУ, ТЕКСТ СНИЗУ)
    ================================================================= */
 .slider { position: relative; overflow: hidden; border-radius: var(--radius); }
 .slider__track { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
 .slide {
   min-width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column; /* Картинка сверху, текст снизу */
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
 }
 
-/* Блок с картинкой */
 .slide__img {
   width: 100%;
-  height: 100%;
-  min-height: 340px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 400px; /* Фиксированная высота для ПК */
+  object-fit: cover;
+  object-position: center;
 }
-
-/* Пути к вашим картинкам */
-.slide__img--1 { background-image: url('images/1printer.jpg'); }
-.slide__img--2 { background-image: url('images/2cartridg.jpg'); }
-.slide__img--3 { background-image: url('images/3Epson.jpg'); }
-.slide__img--4 { background-image: url('images/4pc.jpg'); }
-.slide__img--5 { background-image: url('images/5parktehniki.jpg'); }
 
 .slide__body {
-  padding: 48px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
-.slide__body h3 { font-size: 22px; margin-bottom: 14px; }
+.slide__body h3 { font-size: 22px; margin-bottom: 10px; }
 .slide__body p { color: var(--text-muted); margin: 0; }
 
 .slider__btn {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 40px); /* Чуть выше центра, чтобы быть на картинке */
   transform: translateY(-50%);
   width: 48px; height: 48px;
   border-radius: 50%;
@@ -631,18 +621,10 @@ p { margin: 0 0 1em; }
   .burger { display: flex; }
   .services-grid, .advantages-grid, .steps { grid-template-columns: 1fr; }
 
-  /* СЛАЙДЕР НА ТЕЛЕФОНЕ (ОДНА КОЛОНКА, СТАБИЛЬНАЯ КАРТИНКА) */
-  .slide { display: flex; flex-direction: column; }
-  .slide__img {
-    height: 240px;      /* Фиксированная высота */
-    min-height: 240px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-  }
+  /* Уменьшаем высоту картинки на телефоне */
+  .slide__img { height: 220px; }
   .slide__body { padding: 24px; }
   .slide__body h3 { font-size: 18px; }
-  .slide__body p { font-size: 14px; }
 
   .modal__dialog { padding: 32px 24px; }
 }
