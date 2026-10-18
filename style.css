@@ -44,7 +44,6 @@
 
 html {
   scroll-behavior: smooth;
-  /* Чтобы iOS не увеличивал шрифт при повороте */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -59,7 +58,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background var(--transition), color var(--transition);
-  /* iOS: не даём "прыгать" при горизонтальном свайпе */
   overflow-x: hidden;
 }
 
@@ -68,7 +66,6 @@ a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; margin: 0; padding: 0; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 
-/* Отключаем зум по двойному тапу на кнопках */
 button, a, input, select, textarea {
   touch-action: manipulation;
 }
@@ -88,7 +85,6 @@ p { margin: 0 0 1em; }
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 24px;
-  /* флекс/грид флекс-фиксы для Safari */
   min-width: 0;
 }
 
@@ -105,7 +101,7 @@ p { margin: 0 0 1em; }
   letter-spacing: 0.01em;
   transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
   white-space: nowrap;
-  min-height: 48px; /* удобно нажимать пальцем */
+  min-height: 48px;
 }
 
 .btn--primary {
@@ -135,7 +131,6 @@ p { margin: 0 0 1em; }
   backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
   transition: border-color var(--transition), background var(--transition);
-  /* Safe area для iPhone с "челкой" */
   padding-top: env(safe-area-inset-top, 0);
 }
 [data-theme="light"] .header { background: rgba(247, 247, 245, 0.85); }
@@ -458,13 +453,11 @@ p { margin: 0 0 1em; }
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
-  /* iOS: запрет на подсветку при тапе */
   -webkit-tap-highlight-color: transparent;
 }
 .slider__track {
   display: flex;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Safari флекс-фикс */
   will-change: transform;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
@@ -486,7 +479,6 @@ p { margin: 0 0 1em; }
   object-fit: cover;
   object-position: center;
   display: block;
-  /* iOS: сохраняем пропорции */
   -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
@@ -528,7 +520,7 @@ p { margin: 0 0 1em; }
 .slider__dots {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 6px;
   margin-top: 24px;
 }
 .slider__dot {
@@ -537,7 +529,6 @@ p { margin: 0 0 1em; }
   background: var(--border);
   transition: background var(--transition), transform var(--transition);
   padding: 0;
-  /* удобная зона тапа для пальца */
   min-width: 24px;
   min-height: 24px;
   background-clip: content-box;
@@ -750,7 +741,7 @@ p { margin: 0 0 1em; }
   width: 100%;
   max-width: 480px;
   max-height: 90vh;
-  max-height: 90dvh; /* iOS 15.4+ */
+  max-height: 90dvh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background: var(--surface);
@@ -784,7 +775,6 @@ p { margin: 0 0 1em; }
 .form__group select,
 .form__group textarea {
   font-family: inherit;
-  /* 16px, чтобы iOS не зумил при фокусе на поле */
   font-size: 16px;
   padding: 13px 16px;
   border-radius: var(--radius-sm);
@@ -794,12 +784,10 @@ p { margin: 0 0 1em; }
   transition: border-color var(--transition), box-shadow var(--transition);
   width: 100%;
   resize: vertical;
-  /* iOS/Safari: убираем дефолтные стили */
   -webkit-appearance: none;
   appearance: none;
 }
 .form__group select {
-  /* стрелка для select */
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa4b2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -853,12 +841,10 @@ p { margin: 0 0 1em; }
 
 /* ===== Адаптивность ===== */
 
-/* 1200px — планшеты горизонтально */
 @media (max-width: 1200px) {
   .services-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* 1024px — планшеты вертикально */
 @media (max-width: 1024px) {
   .services-grid,
   .advantages-grid { grid-template-columns: repeat(2, 1fr); }
@@ -872,12 +858,10 @@ p { margin: 0 0 1em; }
   .contacts__map { height: 360px; }
 }
 
-/* 900px — убираем телефон в шапке */
 @media (max-width: 900px) {
   .header__phone { display: none; }
 }
 
-/* 768px — телефоны и небольшие планшеты */
 @media (max-width: 768px) {
   :root { --header-h: 64px; }
   .section { padding: 72px 0; }
@@ -908,9 +892,21 @@ p { margin: 0 0 1em; }
   .advantages-grid,
   .steps { grid-template-columns: 1fr; }
 
-  .slide { grid-template-columns: 1fr; }
-  .slide__img { min-height: 220px; }
-  .slide__body { padding: 28px; }
+  /* Слайдер на мобильных: картинка сверху, текст снизу */
+  .slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  .slide__img {
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+  .slide__body { padding: 24px; }
 
   .about__badge { width: 220px; height: 220px; }
   .about__badge-num { font-size: 44px; }
@@ -919,13 +915,11 @@ p { margin: 0 0 1em; }
   .modal__dialog { padding: 32px 24px; }
   .contacts__map { height: 300px; }
 
-  /* Кнопки навигации слайдера крупнее для пальцев */
   .slider__btn { width: 44px; height: 44px; font-size: 22px; }
   .slider__btn--prev { left: 10px; }
   .slider__btn--next { right: 10px; }
 }
 
-/* 480px — маленькие телефоны */
 @media (max-width: 480px) {
   .container { padding: 0 18px; }
   .hero__cta { flex-direction: column; align-items: stretch; }
@@ -938,7 +932,6 @@ p { margin: 0 0 1em; }
   .modal__dialog { padding: 28px 20px; }
 }
 
-/* 360px — самые узкие Android */
 @media (max-width: 360px) {
   .container { padding: 0 14px; }
   .logo__text { font-size: 15px; }
@@ -951,7 +944,6 @@ p { margin: 0 0 1em; }
   outline-offset: 3px;
 }
 
-/* Отключаем анимации у тех, кто этого просит */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -961,7 +953,6 @@ p { margin: 0 0 1em; }
   .reveal { opacity: 1; transform: none; }
 }
 
-/* ===== Fallback для очень старых браузеров ===== */
 @supports not (backdrop-filter: blur(10px)) {
   .header, .glass-card, .slider__btn, .modal__overlay {
     background: rgba(11, 13, 16, 0.95);
