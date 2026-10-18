@@ -76,7 +76,6 @@
     let currentIndex = 0;
     let autoplayTimer = null;
 
-    // Создаём точки навигации
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.className = 'slider__dot' + (i === 0 ? ' is-active' : '');
@@ -87,7 +86,6 @@
 
     const dots = Array.from(dotsContainer.children);
 
-    // Функция перехода к конкретному слайду
     function goTo(index) {
       currentIndex = (index + slides.length) % slides.length;
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -99,17 +97,14 @@
       restartAutoplay();
     }
 
-    // Переключение на следующий слайд по порядку
     function next() {
       goTo(currentIndex + 1);
     }
 
-    // Переключение на предыдущий слайд
     function prev() {
       goTo(currentIndex - 1);
     }
 
-    // Автоматическая смена слайдов каждые 3 секунды
     function startAutoplay() {
       autoplayTimer = setInterval(() => {
         goTo(currentIndex + 1);
@@ -121,14 +116,11 @@
       startAutoplay();
     }
 
-    // Слушатели для кнопок
     nextBtn.addEventListener('click', next);
     prevBtn.addEventListener('click', prev);
     
-    // Запуск автопрокрутки
     startAutoplay();
 
-    // Свайпы для мобильных
     let touchStartX = 0;
     track.addEventListener('touchstart', (e) => {
       touchStartX = e.changedTouches[0].screenX;
