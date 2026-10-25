@@ -644,3 +644,6 @@ p { margin: 0 0 1em; }
   .hero__cta { flex-direction: column; }
   .btn { width: 100%; }
 }
+.slide__img--epson {
+  object-position: top center; /* Или right center, если принтер справа */
+}
