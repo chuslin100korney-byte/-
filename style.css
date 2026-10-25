@@ -408,13 +408,13 @@ p { margin: 0 0 1em; }
 .slider__dots { 
   display: flex; 
   justify-content: center; 
-  gap: 8px; 
-  margin-top: 20px; 
+  gap: 10px; 
+  margin-top: 24px; 
 }
 
 .slider__dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--border);
   padding: 0;
