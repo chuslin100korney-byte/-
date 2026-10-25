@@ -404,19 +404,27 @@ p { margin: 0 0 1em; }
 .slider__btn--prev { left: 16px; }
 .slider__btn--next { right: 16px; }
 
-.slider__dots { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
+/* --- ТОЧКИ НАВИГАЦИИ (УМЕНЬШЕНЫ) --- */
+.slider__dots { 
+  display: flex; 
+  justify-content: center; 
+  gap: 8px; 
+  margin-top: 20px; 
+}
+
 .slider__dot {
-  width: 10px; height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--border);
   padding: 0;
-  min-width: 24px;
-  min-height: 24px;
-  background-clip: content-box;
-  border: 7px solid transparent;
-  box-sizing: content-box;
+  transition: background var(--transition), transform var(--transition);
 }
-.slider__dot.is-active { background: var(--accent); background-clip: content-box; }
+
+.slider__dot.is-active { 
+  background: var(--accent); 
+  transform: scale(1.3);
+}
 /* ================================================================= */
 
 /* ===== Как мы работаем ===== */
