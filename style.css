@@ -413,8 +413,8 @@ p { margin: 0 0 1em; }
 }
 
 .slider__dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--border);
   padding: 0;
