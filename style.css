@@ -363,7 +363,7 @@ p { margin: 0 0 1em; }
 .slide {
   min-width: 100%;
   display: flex;
-  flex-direction: column; /* Картинка сверху, текст снизу */
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -372,9 +372,14 @@ p { margin: 0 0 1em; }
 
 .slide__img {
   width: 100%;
-  height: 400px; /* Фиксированная высота для ПК */
+  height: 400px;
   object-fit: cover;
   object-position: center;
+}
+
+/* Отдельный сдвиг для фото Epson */
+.slide__img--epson {
+  object-position: left center;
 }
 
 .slide__body {
@@ -387,7 +392,7 @@ p { margin: 0 0 1em; }
 
 .slider__btn {
   position: absolute;
-  top: calc(50% - 40px); /* Чуть выше центра, чтобы быть на картинке */
+  top: calc(50% - 40px);
   transform: translateY(-50%);
   width: 48px; height: 48px;
   border-radius: 50%;
@@ -411,16 +416,14 @@ p { margin: 0 0 1em; }
   gap: 8px; 
   margin-top: 20px; 
 }
-
 .slider__dot {
-  width: 4px;
-  height: 4px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--border);
   padding: 0;
   transition: background var(--transition), transform var(--transition);
 }
-
 .slider__dot.is-active { 
   background: var(--accent); 
   transform: scale(1.3);
