@@ -95,7 +95,7 @@
     function startAutoplay() {
       autoplayTimer = setInterval(next, 3000); // Каждые 3 секунды
     }
-    
+
     function resetAutoplay() {
       clearInterval(autoplayTimer);
       startAutoplay();
@@ -188,7 +188,7 @@
     });
   }
 
-  /* ===== Отправка формы ===== */
+  /* ===== Отправка формы в Google Sheets (Apps Script) ===== */
   function showError(fieldName, message) {
     const field = document.getElementById(fieldName);
     const errorEl = document.querySelector(`[data-error-for="${fieldName}"]`);
@@ -198,7 +198,8 @@
 
   function clearErrors() {
     document.querySelectorAll('.form__error').forEach(el => el.textContent = '');
-    document.querySelectorAll('.form input, .form select, .form textarea').forEach(el => el.classList.remove('is-invalid'));
+    document.querySelectorAll('.form input, .form select, .form textarea')
+      .forEach(el => el.classList.remove('is-invalid'));
   }
 
   function showToast(message) {
@@ -209,23 +210,26 @@
   }
 
   if (orderForm) {
+    // URL веб-приложения Apps Script: приоритет у data-endpoint, fallback — action
+    const endpoint = orderForm.dataset.endpoint || orderForm.action;
+
     orderForm.addEventListener('submit', (e) => {
       e.preventDefault();
       clearErrors();
 
-      const name = document.getElementById('name').value.trim();
+      const name    = document.getElementById('name').value.trim();
       const address = document.getElementById('address').value.trim();
-      const phone = document.getElementById('phone').value.trim();
+      const phone   = document.getElementById('phone').value.trim();
       const service = document.getElementById('service').value;
       const comment = document.getElementById('comment').value.trim();
 
+      // Валидация
       let hasError = false;
-      if (name.length < 2) { showError('name', 'Укажите имя'); hasError = true; }
-      if (address.length < 5) { showError('address', 'Укажите адрес'); hasError = true; }
-      if (phone.replace(/\D/g, '').length !== 11) { showError('phone', 'Введите номер'); hasError = true; }
-      if (!service) { showError('service', 'Выберите услугу'); hasError = true; }
-      if (comment.length < 3) { showError('comment', 'Укажите модель'); hasError = true; }
-
+      if (name.length < 2)                        { showError('name', 'Укажите имя');         hasError = true; }
+      if (address.length < 5)                     { showError('address', 'Укажите адрес');    hasError = true; }
+      if (phone.replace(/\D/g, '').length !== 11) { showError('phone', 'Введите номер');      hasError = true; }
+      if (!service)                               { showError('service', 'Выберите услугу'); hasError = true; }
+      if (comment.length < 3)                     { showError('comment', 'Укажите модель');   hasError = true; }
       if (hasError) return;
 
       const submitBtn = orderForm.querySelector('button[type="submit"]');
@@ -233,27 +237,38 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Отправляем...';
 
-      const formData = new FormData(orderForm);
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000);
+      // GET-запрос: Apps Script doGet + JSON-ответ читается без CORS-проблем
+      const params = new URLSearchParams({
+        'Имя / наименование организации': name,
+        'Адрес': address,
+        'Телефон': phone,
+        'Услуга': service,
+        'Модель картриджа / принтера (МФУ)': comment,
+      });
 
-      fetch(orderForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' },
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+      fetch(endpoint + '?' + params.toString(), {
+        method: 'GET',
         signal: controller.signal,
+        cache: 'no-store',
       })
-        .then(response => {
+        .then(response => response.json())
+        .then(json => {
           clearTimeout(timeoutId);
-          if (response.ok) {
+          if (json && json.result === 'success') {
             orderForm.reset();
             window.closeModal();
             showToast('Заявка отправлена! Мы свяжемся с вами.');
-          } else { throw new Error(); }
+          } else {
+            throw new Error((json && json.message) || 'Неизвестная ошибка');
+          }
         })
-        .catch(() => {
+        .catch((err) => {
           clearTimeout(timeoutId);
-          orderForm.submit();
+          console.error('Ошибка отправки формы:', err);
+          showToast('Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.');
         })
         .finally(() => {
           setTimeout(() => {
