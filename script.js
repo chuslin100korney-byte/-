@@ -252,7 +252,6 @@
           if (json && json.result === 'success') {
             orderForm.reset();
             window.closeModal();
-            // Тост удален, поэтому просто закрываем модалку после успеха
           } else {
             throw new Error((json && json.message) || 'Неизвестная ошибка');
           }
@@ -260,7 +259,6 @@
         .catch((err) => {
           clearTimeout(timeoutId);
           console.error('Ошибка отправки формы:', err);
-          // Вместо тоста выводим alert при ошибке
           alert('Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.');
         })
         .finally(() => {
