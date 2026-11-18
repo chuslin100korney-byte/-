@@ -506,11 +506,10 @@
       <h3 id="modalTitle" class="modal__title">Заявка на выезд курьера</h3>
       <p class="modal__subtitle">Заполните форму — мы свяжемся с вами и согласуем удобное время.</p>
 
-      <form class="form" id="orderForm" action="https://formsubmit.co/Zaulinav@mail.ru" method="POST" novalidate>
-        <input type="hidden" name="_subject" value="Новая заявка с сайта Квинтет принт" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-
+      <form class="form" id="orderForm" novalidate
+            action="https://script.google.com/macros/s/AKfycbwPqPu_6QiffKMFHQ0oqBFRqbSEaD3brXIAf5QxqmXHgRkslyRuU0FSSbJ8_Szte2AY7g/exec"
+            data-endpoint="https://script.google.com/macros/s/AKfycbwPqPu_6QiffKMFHQ0oqBFRqbSEaD3brXIAf5QxqmXHgRkslyRuU0FSSbJ8_Szte2AY7g/exec"
+            method="GET">
         <div class="form__group">
           <label for="name">Наименование организации / физлица *</label>
           <input type="text" id="name" name="Имя / наименование организации" required placeholder="ООО «Ромашка» / Иванов И. И." />
