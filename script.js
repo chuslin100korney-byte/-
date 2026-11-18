@@ -139,7 +139,6 @@
   const modal = document.getElementById('modal');
   const orderForm = document.getElementById('orderForm');
   const serviceSelect = document.getElementById('service');
-  const toast = document.getElementById('toast');
 
   window.openModal = function(serviceName) {
     if (!modal) return;
@@ -202,13 +201,6 @@
       .forEach(el => el.classList.remove('is-invalid'));
   }
 
-  function showToast(message) {
-    if (!toast) return;
-    toast.textContent = message;
-    toast.classList.add('is-visible');
-    setTimeout(() => toast.classList.remove('is-visible'), 4000);
-  }
-
   if (orderForm) {
     // URL веб-приложения Apps Script: приоритет у data-endpoint, fallback — action
     const endpoint = orderForm.dataset.endpoint || orderForm.action;
@@ -260,7 +252,7 @@
           if (json && json.result === 'success') {
             orderForm.reset();
             window.closeModal();
-            showToast('Заявка отправлена! Мы свяжемся с вами.');
+            // Тост удален, поэтому просто закрываем модалку после успеха
           } else {
             throw new Error((json && json.message) || 'Неизвестная ошибка');
           }
@@ -268,7 +260,8 @@
         .catch((err) => {
           clearTimeout(timeoutId);
           console.error('Ошибка отправки формы:', err);
-          showToast('Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.');
+          // Вместо тоста выводим alert при ошибке
+          alert('Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.');
         })
         .finally(() => {
           setTimeout(() => {
