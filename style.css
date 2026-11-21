@@ -626,8 +626,9 @@ p { margin: 0 0 1em; }
 /* ===== Всплывающее уведомление (Тост) ===== */
 .toast {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 0;             /* Прикрепляем к нижнему краю */
+  left: 50%;             /* Выравниваем по центру */
+  
   display: flex;
   align-items: center;
   gap: 12px;
@@ -636,30 +637,31 @@ p { margin: 0 0 1em; }
   padding: 16px 24px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  border-left: 4px solid #22c55e; /* Зеленая полоска успеха */
-  box-shadow: var(--shadow);
-  font-weight: 500;
+  border-top: 4px solid #22c55e; /* Зеленая полоска сверху для стиля */
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  font-size: 15px;
   z-index: 1000;
   
-  /* Скрыто по умолчанию */
+  /* Изначально скрыто внизу за краем экрана */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px);
+  transform: translate(-50%, 100px); 
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Класс, который делает его видимым */
+/* Класс, который выдвигает плашку на экран */
 .toast.is-visible {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translate(-50%, -20px); /* Выезжает вверх на 20px от нижнего края */
 }
 
 @media (max-width: 768px) {
   .toast {
-    bottom: 20px;
-    right: 20px;
-    left: 20px;
+    width: 90%; /* На телефонах растягиваем почти на всю ширину */
     justify-content: center;
+    text-align: center;
+    padding: 14px 20px;
   }
 }
