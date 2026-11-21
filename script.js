@@ -135,10 +135,13 @@
     }
   });
 
-  /* ===== Модальное окно ===== */
+  /* ===== Модальное окно и Тост ===== */
   const modal = document.getElementById('modal');
   const orderForm = document.getElementById('orderForm');
   const serviceSelect = document.getElementById('service');
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toastMessage');
+  let toastTimer;
 
   window.openModal = function(serviceName) {
     if (!modal) return;
@@ -152,6 +155,17 @@
     if (!modal) return;
     modal.classList.remove('is-open');
     document.body.style.overflow = '';
+  }
+
+  function showToast(message) {
+    if (!toast || !toastMessage) return;
+    toastMessage.textContent = message;
+    toast.classList.add('is-visible');
+    
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('is-visible');
+    }, 4000); // Исчезнет через 4 секунды
   }
 
   document.querySelectorAll('[data-modal-open]').forEach(btn => {
@@ -248,18 +262,18 @@
       })
         .then(() => {
           // Если запрос не упал с ошибкой сети — считаем, что всё ок!
-          // Google Apps Script часто возвращает "opaque" ответ (status 0), 
-          // но данные при этом успешно записываются.
           clearTimeout(timeoutId);
           orderForm.reset();
           window.closeModal();
-          alert('Заявка отправлена! Мы свяжемся с вами.');
+          
+          // Показываем красивое уведомление
+          showToast('Заявка отправлена! Мы свяжемся с вами.');
         })
         .catch((err) => {
           clearTimeout(timeoutId);
           console.error('Ошибка отправки формы:', err);
-          // Если упало сюда — значит реально нет интернета или URL неверный
-          alert('Ошибка сети. Проверьте интернет или позвоните нам.');
+          // Показываем уведомление об ошибке
+          showToast('Ошибка сети. Проверьте интернет или позвоните нам.');
         })
         .finally(() => {
           setTimeout(() => {
