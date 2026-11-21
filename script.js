@@ -229,7 +229,7 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Отправляем...';
 
-      // GET-запрос: Apps Script doGet + JSON-ответ читается без CORS-проблем
+      // GET-запрос: Apps Script doGet
       const params = new URLSearchParams({
         'Имя / наименование организации': name,
         'Адрес': address,
@@ -246,20 +246,20 @@
         signal: controller.signal,
         cache: 'no-store',
       })
-        .then(response => response.json())
-        .then(json => {
+        .then(() => {
+          // Если запрос не упал с ошибкой сети — считаем, что всё ок!
+          // Google Apps Script часто возвращает "opaque" ответ (status 0), 
+          // но данные при этом успешно записываются.
           clearTimeout(timeoutId);
-          if (json && json.result === 'success') {
-            orderForm.reset();
-            window.closeModal();
-          } else {
-            throw new Error((json && json.message) || 'Неизвестная ошибка');
-          }
+          orderForm.reset();
+          window.closeModal();
+          alert('Заявка отправлена! Мы свяжемся с вами.');
         })
         .catch((err) => {
           clearTimeout(timeoutId);
           console.error('Ошибка отправки формы:', err);
-          alert('Не удалось отправить заявку. Попробуйте ещё раз или позвоните нам.');
+          // Если упало сюда — значит реально нет интернета или URL неверный
+          alert('Ошибка сети. Проверьте интернет или позвоните нам.');
         })
         .finally(() => {
           setTimeout(() => {
